@@ -12,28 +12,40 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ];
 
-  const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
-  const handleVote = () => {
+  const handleVote = (index) => {
     const newVotes = [...votes];
-    newVotes[selected] += 1;
+    newVotes[index] += 1;
     setVotes(newVotes);
   };
 
-  const getRandomAnecdote = () => {
-    const randomIndex = Math.floor(Math.random() * anecdotes.length);
-    setSelected(randomIndex);
-  };
+  const mostVotedIndex = votes.indexOf(Math.max(...votes));
 
   return (
     <div>
       <div>
-        <div>{anecdotes[selected]}</div>
-        <div>Votes: {votes[selected]}</div>
+        <h2>Anecdote with the most votes</h2>
+        {votes[mostVotedIndex] > 0 ? (
+          <div>
+            <p>{anecdotes[mostVotedIndex]}</p>
+            <p>Has {votes[mostVotedIndex]} votes</p>
+          </div>
+        ) : (
+          <p>No votes yet</p>
+        )}
       </div>
-      <button onClick={handleVote}>Vote</button>
-      <button onClick={getRandomAnecdote}>Next Anecdote</button>
+      <hr />
+      <div>
+        <h2>Vote for your favorite anecdote</h2>
+        {anecdotes.map((anecdote, index) => (
+          <div key={index}>
+            <p>{anecdote}</p>
+            <button onClick={() => handleVote(index)}>Vote</button>
+            <hr />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
