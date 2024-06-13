@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import Filter from './component/Filter';
 import PersonForm from './component/PersonForm';
 import Persons from './component/Person';
-import axios from 'axios'
 
-axios
-  .get('http://localhost:3001/notes')
-  .then(response => {
-    const notes = response.data
-    console.log(notes)
-  })
+
 
 const App = () => {
   const [persons, setPersons] = useState([
