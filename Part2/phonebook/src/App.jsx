@@ -17,12 +17,12 @@ const App = () => {
         console.error('Error fetching contacts:', error);
       });
   }, []);
-  
+
   console.log(persons)
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-  
+
   const addPerson = (newName, newNumber) => {
     const nameExists = persons.some(person => person.name === newName);
     if (nameExists) {
@@ -30,7 +30,7 @@ const App = () => {
       return;
     }
 
-    const newPerson = { name: newName, number: newNumber };
+    newPerson = { name: newName, number: newNumber };
     contactService.create(newPerson)
       .then(addedPerson => {
         setPersons([...persons, addedPerson]);
@@ -51,6 +51,7 @@ const App = () => {
       <h3>Add a new person</h3>
       <PersonForm addPerson={addPerson} />
       <h2>Numbers</h2>
+      {/* <Persons persons={persons} /> */}
       <Persons persons={filteredPersons} />
     </div>
   );
